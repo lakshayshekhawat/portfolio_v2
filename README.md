@@ -1,28 +1,18 @@
-# allaboutlakshay — portfolio
+# allaboutlakshay
 
-Personal portfolio of Lakshay Singh Shekhawat, built with [Astro](https://astro.build).
+My portfolio, live at **[allaboutlakshay.netlify.app](https://allaboutlakshay.netlify.app)**.
 
-## Run it locally
+![Home page](public/og.png)
+
+I'm a Product Owner who builds B2B API and integration products for US freight. The site walks through that work as a route: scroll down and a small version of me walks the road, each section is a stop, and every stop you reach adds to a score. Scroll back up and the score comes back down. If you'd rather skip the game, the resume is one click from the top.
+
+**What's on it:** four stories of things I've shipped, the side projects I'm building now, and the PRDs I wrote in my product management program.
+
+**How it's built:** [Astro](https://astro.build) for a fast static site, with plain CSS and no UI framework. The walking character and scoring are about 75 lines of vanilla JavaScript. It respects reduced-motion settings and scores 100 on accessibility. Hosted on Netlify.
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # builds the static site into dist/
+npm run dev    # http://localhost:4321
 ```
 
-## Where to edit things
-
-| What | File |
-| --- | --- |
-| Name, hero line, email, phone, LinkedIn, GitHub, resume path | `src/data/site.js` |
-| Work cards, "What I'm building now", PRD links | `src/data/content.js` |
-| The four full Work stories (and their flow diagrams) | `src/pages/work/*.md` |
-| "How I got here" paragraph | `src/pages/index.astro` |
-| Colours and fonts | `src/styles/global.css` |
-| Resume PDF | `public/Lakshay_Resume_Product_Manager.pdf` (keep the name, or update `site.js`) |
-| Link-preview image | `public/og.png` |
-
-## Deploy
-
-Netlify reads `netlify.toml`: build command `npm run build`, publish folder `dist`.
-Connect the GitHub repo to the existing allaboutlakshay site in Netlify and every push redeploys.
+How to edit the content is in [EDITING.md](EDITING.md).
