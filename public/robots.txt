@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allaboutlakshay.netlify.app/sitemap-index.xml

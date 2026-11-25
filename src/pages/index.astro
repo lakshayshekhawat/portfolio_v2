@@ -1,0 +1,336 @@
+---
+import Base from '../layouts/Base.astro';
+import Portrait from '../components/Portrait.astro';
+import Runner from '../components/Runner.astro';
+import { site } from '../data/site.js';
+import { work, building, prds } from '../data/content.js';
+---
+<Base showScore>
+  <div class="wrap wrap-wide route">
+    <aside class="road" aria-hidden="true">
+      <div class="runner">
+        <Runner />
+        <span class="pop" data-pop></span>
+      </div>
+    </aside>
+
+    <div class="stations">
+      <section id="start" class="station" data-stop data-points="0">
+        <span class="stop stop-start" aria-hidden="true">Start</span>
+        <div class="hero">
+          <div class="hero-text">
+            <h1>{site.name}</h1>
+            <p class="lede">{site.role}</p>
+            <p class="muted hint">
+              Scroll to walk the route. Each stop is a level, and each one you reach adds to the score.
+              Or skip the game and grab the resume.
+            </p>
+            <div class="actions">
+              <a class="btn btn-solid" href={site.resume} download>Download resume</a>
+              <a class="btn btn-line" href="#contact">Get in touch</a>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="portrait-frame"><Portrait size={260} /></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" class="station" data-stop data-points="150">
+        <span class="stop" aria-hidden="true">1</span>
+        <div class="stack-lg">
+          <h2>Things I've shipped</h2>
+          <div class="work-grid">
+          {work.map((w) => (
+            <article class="story">
+              <h3>{w.title}</h3>
+              <p class="soft">{w.story}</p>
+              <p>
+                {w.result && <strong>{w.result} </strong>}
+                <a href={`/work/${w.slug}/`}>Read how it went<span class="sr">: {w.title}</span></a>
+              </p>
+            </article>
+          ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="now" class="station" data-stop data-points="100">
+        <span class="stop" aria-hidden="true">2</span>
+        <div class="stack-md">
+          <div class="prose stack-md">
+            <h2>What I'm building now</h2>
+            <p class="soft">Side projects, built with AI coding tools. Each one runs on my laptop today.</p>
+          </div>
+          <div class="builds">
+            {building.map((b) => (
+              <article class="build">
+                <h3>{b.title}</h3>
+                <p class="soft">{b.what}</p>
+                <p class="status">{b.next}</p>
+                {b.repo && <a href={b.repo}>Code on GitHub</a>}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="prds" class="station" data-stop data-points="100">
+        <span class="stop" aria-hidden="true">3</span>
+        <div class="stack-md">
+          <h2>Product thinking on paper</h2>
+          <p class="soft">PRDs from the Rethink Systems PM program, 2024.</p>
+          <ul class="prd-list">
+            {prds.map((p) => (
+              <li>
+                <a href={p.href} target="_blank" rel="noopener">
+                  <span class="prd-title">{p.title}</span>
+                  <span class="prd-line">{p.line}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="experience" class="station" data-stop data-points="100">
+        <span class="stop" aria-hidden="true">4</span>
+        <div class="stack-md">
+          <h2>How I got here</h2>
+          <div class="exp-grid">
+          <p class="soft">
+            I studied computer science at LNMIIT and started out writing code: as a front-end developer at{' '}
+            <strong>DailyObjects</strong>, I built parts of their e-commerce site in Angular and ran A/B tests on the UI.
+            At <strong>BYJU'S</strong> I crossed to the business side as a Business Development Associate in sales, and
+            learned how customers actually decide to buy. Then came <strong>Flyhomes</strong>, where I guided US home buyers
+            from onboarding to closing, first as a Process Associate and then as a Client Success Consultant. In 2023 I
+            joined <strong>AVRL</strong> as a Technical Delivery Manager, became Product Owner for UI automations a year
+            later, and since March 2025 I've owned API automations.
+          </p>
+          <p class="soft">
+            I work across Jira, Confluence, Monday.com, Zendesk, Postman and Figma, and I'm comfortable in REST APIs,
+            webhooks, OAuth, SQL and Python when a spec needs checking.
+          </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="station station-last" data-stop data-points="150">
+        <span class="stop stop-finish" aria-hidden="true">Finish</span>
+        <div class="prose stack-md">
+          <h2 class="finish-title">Got a product problem worth solving? Let's talk.</h2>
+          <p class="soft">I'm in Hyderabad and work with teams anywhere. Off the clock I read, write down ideas, and take long rides.</p>
+          <ul class="contact">
+            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li><a href={site.phoneHref}>{site.phone}</a></li>
+            <li><a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
+            {site.github && <li><a href={site.github} target="_blank" rel="noopener">GitHub</a></li>}
+            <li><a href={site.resume} download>Resume (PDF)</a></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .wrap-wide { max-width: 1400px; }
+  .route { display: flex; gap: var(--road-gap); }
+  .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; }
+  .exp-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 22px 64px; align-items: start; }
+  .prd-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; }
+  .builds { max-width: none !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .lede, .hint { max-width: 640px !important; }
+  @media (max-width: 1000px) {
+    .work-grid, .exp-grid, .prd-list { grid-template-columns: minmax(0, 1fr); }
+    .builds { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important; }
+  }
+
+  .road {
+    flex: 0 0 var(--road-w);
+    position: relative;
+    background-color: var(--road);
+    background-image: repeating-linear-gradient(to bottom, var(--marking) 0 22px, transparent 22px 44px);
+    background-size: 4px 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: calc(var(--road-w) / 2);
+    margin: 8px 0 48px;
+  }
+  .runner {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+    display: flex; justify-content: center;
+    will-change: transform;
+    transition: transform 0.18s linear;
+  }
+  .pop {
+    position: absolute; left: 50%; top: -30px; margin-left: -28px;
+    padding: 2px 10px; border-radius: 10px;
+    background: var(--marking); color: var(--ink);
+    font-family: var(--display); font-weight: 800; font-size: 16px;
+    white-space: nowrap; opacity: 0; pointer-events: none; z-index: 6;
+    box-shadow: 0 0 0 3px var(--paper);
+  }
+  .pop.show { animation: pop 1.4s ease-out forwards; }
+  @media (prefers-reduced-motion: reduce) { .runner { transition: none; } }
+  @keyframes pop {
+    0% { opacity: 0; transform: translateY(6px); }
+    15% { opacity: 1; transform: translateY(0); }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-14px); }
+  }
+
+  .stations { flex: 1 1 auto; min-width: 0; }
+  .station { position: relative; padding: 40px 0 80px; scroll-margin-top: 72px; }
+  .station-last { padding-bottom: 96px; }
+
+  .stop {
+    position: absolute; top: 40px;
+    left: calc(-1 * (var(--road-gap) + var(--road-w) / 2));
+    transform: translateX(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 800; font-size: 18px;
+    background: var(--paper); color: #56636A; border: 3px solid #56636A;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .stop-start, .stop-finish { font-size: 12px; }
+  .stop-start { top: 28px; }
+  :global(.station.reached) > .stop { background: var(--marking); color: var(--ink); border-color: var(--marking); }
+
+  .hero { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 40px; padding: 32px 0 24px; }
+  .hero-text { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+  .lede { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.35; max-width: 560px; }
+  .hint { font-size: 18px; max-width: 560px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-art { flex: 1 1 240px; display: flex; justify-content: center; }
+  .portrait-frame {
+    width: 280px; height: 320px; border-radius: 140px 140px 20px 20px;
+    background: #DDE4DA; display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+  }
+
+  .stack-lg { display: flex; flex-direction: column; gap: 36px; }
+  .stack-md { display: flex; flex-direction: column; gap: 22px; }
+  .story { display: flex; flex-direction: column; gap: 8px; }
+
+  .builds { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 900px; }
+  .build {
+    display: flex; flex-direction: column; gap: 8px; padding: 20px;
+    border-radius: 14px; background: var(--card); border: 2px dashed #B9C4BE;
+  }
+  .build h3 { font-size: 21px; }
+  .build p { font-size: 17px; line-height: 1.55; }
+  .status { font-size: 15px !important; color: var(--status); }
+
+  .prd-list { list-style: none; margin: 0; padding: 0; }
+  .prd-list li { border-bottom: 1px solid var(--line); }
+  .prd-list a {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px;
+    padding: 14px 0; text-decoration: none; color: var(--ink);
+  }
+  .prd-list a:hover .prd-title { text-decoration: underline; }
+  .prd-title { font-family: var(--display); font-weight: 600; font-size: 20px; }
+  .prd-line { font-size: 17px; color: var(--muted); }
+
+  .finish-title { font-size: clamp(38px, 5.5vw, 56px); line-height: 1; letter-spacing: -0.025em; }
+  .contact { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 20px; }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .stop { width: 30px; height: 30px; font-size: 14px; border-width: 2px; }
+    .stop-start, .stop-finish { font-size: 0; }
+    .runner :global(.runner-svg) { width: 34px; height: 46px; }
+    .pop { font-size: 13px; }
+    .portrait-frame { width: 220px; height: 252px; }
+    .portrait-frame :global(svg) { width: 200px; height: 217px; }
+    .station { padding: 32px 0 56px; }
+  }
+</style>
+
+<script>
+  const stops = Array.from(document.querySelectorAll<HTMLElement>('[data-stop]'));
+  const runner = document.querySelector<HTMLElement>('.runner');
+  const pop = document.querySelector<HTMLElement>('[data-pop]');
+  const scoreEl = document.querySelector<HTMLElement>('[data-score]');
+  const labelEl = document.querySelector<HTMLElement>('[data-score-label]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const total = stops.length;
+
+  let score = 0;
+  let reachedCount = 0;
+  let moveTimer: number | undefined;
+  let ticking = false;
+
+  function render() {
+    if (scoreEl) scoreEl.textContent = String(score);
+    if (labelEl) labelEl.textContent = `points, ${Math.max(reachedCount - 1, 0)} of ${total - 1} stops`;
+  }
+
+  function showPop(points: number) {
+    if (!pop || points <= 0 || reduce) return;
+    pop.textContent = `+${points}`;
+    pop.classList.remove('show');
+    void pop.offsetWidth; // restart the animation
+    pop.classList.add('show');
+  }
+
+  const road = document.querySelector<HTMLElement>('.road');
+
+  function docTop(el: HTMLElement) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function check() {
+    ticking = false;
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    const atBottom = vh + y >= document.documentElement.scrollHeight - 4;
+    // The reading line starts at the top of the page and settles at mid-screen
+    // after half a screen of scrolling, so the walk begins at the Start stop.
+    const reading = y + Math.min(y, vh * 0.5);
+
+    let newScore = 0;
+    let newCount = 0;
+    stops.forEach((stop, i) => {
+      const marker = stop.querySelector<HTMLElement>('.stop') || stop;
+      const reached = i === 0 || docTop(marker) <= reading || (atBottom && i === total - 1);
+      stop.classList.toggle('reached', reached);
+      if (reached) {
+        newScore += Number(stop.dataset.points || 0);
+        newCount += 1;
+      }
+    });
+    if (newScore > score) showPop(newScore - score);
+    score = newScore;
+    reachedCount = newCount;
+    render();
+
+    if (runner && road) {
+      const roadTop = docTop(road);
+      const first = stops[0].querySelector<HTMLElement>('.stop');
+      const last = stops[total - 1].querySelector<HTMLElement>('.stop');
+      const startY = first ? docTop(first) - roadTop - 14 : 0;
+      const endY = last ? docTop(last) - roadTop - 14 : road.offsetHeight - 80;
+      const target = atBottom ? endY : reading - roadTop - 36;
+      const pos = Math.min(Math.max(target, startY), endY);
+      runner.style.transform = `translateY(${pos}px)`;
+    }
+  }
+
+  function onScroll() {
+    if (runner && !reduce) {
+      runner.classList.add('is-moving');
+      window.clearTimeout(moveTimer);
+      moveTimer = window.setTimeout(() => runner.classList.remove('is-moving'), 180);
+    }
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(check);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  check();
+</script>

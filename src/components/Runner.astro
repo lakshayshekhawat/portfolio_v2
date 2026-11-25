@@ -1,0 +1,23 @@
+---
+// Side-view character that walks the route. Legs swing while the page scrolls.
+---
+<svg class="runner-svg" width="54" height="72" viewBox="0 0 60 80" aria-hidden="true" focusable="false">
+  <path class="leg leg-back" d="M26 50l-8 14-6 2" stroke="#9FB0C4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="leg leg-front" d="M32 50l10 10 2 12" stroke="#9FB0C4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 30c0-6 4-10 10-10s10 4 10 10v20H22z" fill="#A8916B"/>
+  <path class="arm" d="M26 32l-8 10" stroke="#A8916B" stroke-width="5" stroke-linecap="round"/>
+  <path class="arm" d="M40 32l8-6" stroke="#A8916B" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="33" cy="13" r="9" fill="#C08A62"/>
+  <path d="M26 14c0 6 3 10 8 10s8-4 8-9c-2 2-4 3-6 3-1-1-3-2-5-2s-3 1-5 0z" fill="#2B211C"/>
+  <path d="M24 12c-1-8 4-12 10-12 6 0 9 4 9 10-2-3-4-4-6-4-3 2-8 2-13 6z" fill="#1F1915"/>
+</svg>
+
+<style>
+  .leg { transform-box: fill-box; transform-origin: top center; }
+  :global(.runner.is-moving) .leg-back { animation: swing 0.36s ease-in-out infinite alternate; }
+  :global(.runner.is-moving) .leg-front { animation: swing 0.36s ease-in-out infinite alternate-reverse; }
+  @keyframes swing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.runner.is-moving) .leg { animation: none; }
+  }
+</style>

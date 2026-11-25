@@ -1,0 +1,93 @@
+---
+import '@fontsource-variable/overpass/wght.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '../styles/global.css';
+import { site } from '../data/site.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+  showScore?: boolean;
+}
+const { title, description = site.description, showScore = false } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name}, Product Owner`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1D2B2F" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="top">
+      <div class="wrap top-inner">
+        <a class="brand" href="/">{site.shortName}</a>
+        <nav aria-label="Main">
+          <a href="/#work">Work</a>
+          <a href="/#now">Working on</a>
+          <a href="/#prds">PRDs</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        {showScore && (
+          <div class="score" aria-hidden="true">
+            <span class="score-num" data-score>0</span>
+            <span class="score-label" data-score-label>points, 0 of 5 stops</span>
+          </div>
+        )}
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(243, 245, 241, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+  }
+  .top-inner {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 12px 24px; padding-top: 14px; padding-bottom: 14px;
+    font-family: var(--display);
+  }
+  .brand { font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 16px; }
+  nav a { color: var(--ink); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  .score {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 14px; border-radius: 12px; background: var(--ink); color: var(--paper);
+    font-size: 15px; line-height: 1.2;
+  }
+  .score-num { font-weight: 800; font-size: 20px; color: var(--marking); min-width: 3ch; text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 720px) {
+    .score-label { display: none; }
+    nav { gap: 6px 16px; font-size: 15px; }
+  }
+</style>

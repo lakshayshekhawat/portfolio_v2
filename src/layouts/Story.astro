@@ -1,0 +1,55 @@
+---
+import Base from './Base.astro';
+const { frontmatter } = Astro.props;
+---
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <article class="wrap story-page">
+    <p class="back"><a href="/#work">Back to the route</a></p>
+    <header class="story-head">
+      <p class="kicker">{frontmatter.kicker}</p>
+      <h1>{frontmatter.title}</h1>
+      <p class="dek">{frontmatter.description}</p>
+      {frontmatter.result && <p class="result">{frontmatter.result}</p>}
+    </header>
+    <div class="story-body">
+      <slot />
+    </div>
+    <p class="back back-end"><a href="/#work">Back to the route</a></p>
+  </article>
+</Base>
+
+<style>
+  .story-page { padding-top: 40px; padding-bottom: 80px; }
+  .story-page > * { max-width: 680px; }
+  .back { font-family: var(--display); font-size: 16px; }
+  .back-end { margin-top: 56px; }
+  .story-head { display: flex; flex-direction: column; gap: 16px; margin: 32px 0 48px; }
+  .story-head h1 { font-size: clamp(44px, 7vw, 72px); line-height: 0.98; }
+  .kicker { font-family: var(--display); font-size: 16px; color: var(--muted); }
+  .dek { font-size: 23px; line-height: 1.45; color: var(--ink-soft); }
+  .result {
+    align-self: flex-start;
+    padding: 10px 16px; border-radius: 12px;
+    background: var(--road); color: var(--paper);
+    font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.4;
+    border-left: 0;
+  }
+  .story-body :global(h2) { font-size: 30px; margin: 44px 0 12px; letter-spacing: -0.01em; }
+  .story-body :global(p) { margin: 0 0 18px; color: var(--ink-soft); }
+  .story-body :global(ul) { margin: 0 0 18px; padding-left: 1.2em; color: var(--ink-soft); }
+  .story-body :global(li) { margin-bottom: 8px; }
+  .story-body :global(strong) { color: var(--ink); }
+  .story-body :global(.flow) { margin: 36px 0 40px; padding: 28px; border-radius: 16px; background: #E6EBE5; display: flex; flex-direction: column; align-items: center; }
+  .story-body :global(.flow-step) { background: var(--card); border: 2px solid var(--line); border-radius: 12px; padding: 10px 16px; text-align: center; font-family: var(--display); font-weight: 700; font-size: 17px; line-height: 1.3; color: var(--ink); max-width: 320px; width: 100%; }
+  .story-body :global(.flow-step span) { display: block; font-family: var(--body); font-weight: 400; font-size: 15px; color: var(--muted); margin-top: 2px; }
+  .story-body :global(.flow-key) { background: var(--road); border-color: var(--road); color: var(--paper); }
+  .story-body :global(.flow-key span) { color: #C9D1CB; }
+  .story-body :global(.flow-arrow) { width: 2px; height: 26px; background: var(--road); position: relative; margin-bottom: 6px; }
+  .story-body :global(.flow-arrow::after) { content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--road); border-bottom: 0; }
+  .story-body :global(.flow-branches) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; width: 100%; }
+  .story-body :global(.flow-branch) { display: flex; flex-direction: column; align-items: center; padding: 14px; border: 2px dashed #B9C4BE; border-radius: 14px; }
+  .story-body :global(.flow-tag) { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--ink); background: var(--marking); border-radius: 8px; padding: 3px 10px; margin-bottom: 12px; text-align: center; }
+  .story-body :global(.flow figcaption) { margin-top: 18px; font-size: 16px; color: var(--ink-soft); text-align: center; max-width: 520px; }
+  @media (max-width: 600px) { .story-body :global(.flow-branches) { grid-template-columns: minmax(0, 1fr); } .story-body :global(.flow) { padding: 18px; } }
+  .story-body :global(mark) { background: #FBE7A1; color: var(--ink); padding: 0 3px; border-radius: 3px; }
+</style>
