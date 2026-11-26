@@ -1,62 +1,71 @@
 ---
 layout: ../../layouts/Story.astro
-title: From UI bots to API-based automations
-kicker: Platform migration at AVRL
-description: How we moved a live B2B automation platform off fragile portal bots and onto TMS APIs, one customer at a time.
-result: Almost all customers migrated, a representative run about 2x faster, no more breakages from screen changes, and 5–6 automations per server instead of 3.
+title: From on-portal automations to APIs
+kicker: Flagship project · Platform migration at AVRL
+description: How I took a live B2B automation platform off fragile on-portal automations and onto TMS APIs, one customer at a time, without breaking anyone's bidding logic.
+result: On-portal automations moved to APIs wherever API was the only option or the customer chose it. A sample run got about 2x faster, with roughly 40–50% fewer VMs per automation. The platform now runs 550+ live API automations.
+tldr:
+  - label: Problem
+    text: TMS portals started blocking our on-portal automations with CAPTCHAs. Customers on those platforms were about to lose their automations, and the business they brought in.
+  - label: My call
+    text: I checked what each TMS offered instead, proposed moving to their APIs, and rated every automation for API readiness before asking any customer to move.
+  - label: Result
+    text: Automations moved wherever API was the only option or the customer chose it. Runs got about 2x faster, each VM carries 5–6 automations instead of about 3, and API Automations now serves about 50 customers across 12 TMSs on outgoing API and 8 on incoming.
 ---
 
 ## Context
 
-AVRL automates bidding for US freight carriers. Each automation connects a carrier to the Transportation Management System (TMS) where shippers post loads. When I took this on, most automations were UI bots: scripts that logged into a TMS portal and clicked through it like a person would.
+AVRL automates bidding for US freight carriers. Each automation connects a carrier to the Transportation Management System (TMS) where shippers post loads, then bids using the carrier's own rules. Most automations ran on-portal: scripts that logged into a TMS portal and clicked through it like a person would. They broke whenever a portal changed its screens, and every fix needed an engineer.
 
-## The problem
+## The problem, and how I found the way out
 
-TMS providers started to push back. Several added CAPTCHAs, restricted automated activity or blocked bots outright, and some launched their own APIs and asked customers to use them instead. For some platforms, moving to APIs was now mandatory. For others it was an economic and operational choice.
+TMS providers started pushing back: CAPTCHAs, restrictions on automated activity, some blocking automated access outright. On those platforms, customers had no way to keep their automations running, and a carrier without its automation can lose a lot of business.
 
-The bots had other costs too:
+When the blocking started, I looked at what each TMS offered instead. Several had launched APIs and were asking customers to use them. I proposed that we move to those APIs, and the CTO approved it.
 
-- They broke whenever a portal changed its screens, and every fix needed an engineer.
-- A broken automation could mean a missed bid for the customer.
-- Large runs could take more than 30 minutes.
-- Customers needed automations that ran reliably around the clock.
+## Who did what
 
-## My role
+| | Role in the migration |
+| --- | --- |
+| **Me** | Proposed the move, built the readiness framework, set the order customers were approached in, ran every customer and TMS-vendor conversation, decided on minor workarounds, and monitored automations after go-live |
+| **Engineering** | Built the API integrations and the workarounds we agreed |
+| **CTO** | Approved the migration and decided anything that changed the product for everyone |
+| **Customers and TMS vendors** | Granted API access, shared documentation and agreed changes to the customer's logic |
 
-I proposed the move to APIs to our CTO, who approved it. I then drove the customer side of the migration, from first assessment to monitoring after go-live. Our engineers built the integrations; my job was making sure each migration was feasible, agreed and delivered.
+## Check readiness before asking anyone to move
 
-I was responsible for:
-
-- reviewing each customer's existing automations and business logic
-- assessing whether the TMS API could support them
-- deciding the order customers were approached in
-- explaining the benefits, limits and costs to customers
-- coordinating API access between customers and TMS providers
-- working with engineers to close API gaps
-- approving minor customer-specific workarounds, and escalating product-level changes to the CTO
-- tracking progress, and monitoring automations after migration
-
-## Approach: check readiness before asking anyone to move
-
-Before contacting a customer, I reviewed their automation logic against what the TMS API could actually return, and sorted each automation into one of three groups:
+Before contacting a customer, I compared their automation logic with what the TMS API could actually return:
 
 | Readiness | What it meant | What we did |
 | --- | --- | --- |
 | Fully compatible | The API supported the existing logic as it was | Migrate |
-| Partially compatible | Some requirements needed different fields, a workaround or a change to the logic | Agree the changes with the customer first, then migrate |
-| Not compatible | Required functionality wasn't available through the API | Keep the UI bot for now, where the TMS still allowed it |
+| Partially compatible | Some requirements needed a different field, a workaround or a logic change | Agree the changes with the customer, then migrate |
+| Not compatible | Required functionality wasn't available through the API | Keep it on-portal for now, where the TMS still allowed it |
 
-That meant every conversation started with facts: what would keep working, what would change and what couldn't move yet. We approached high-volume customers first, because they had the most to gain and showed us the gaps earliest.
+TMSs that were blocking automations came first, because those customers would lose their automations otherwise. Within that, high-volume customers went first: they had the most to gain, and they exposed API gaps early enough to fix them for everyone else.
 
-## Two kinds of API integration
+## When the API fell short
 
-The migration used one model. The other came later, as a separate product.
+APIs rarely returned everything the portal showed. For each gap I worked through four options with the customer, the TMS vendor and engineering:
+
+| Option | When I chose it |
+| --- | --- |
+| Another field or a workaround | An API field could stand in for the missing one. I shared real API responses with the customer to confirm it did the job. Minor workarounds were my call |
+| Change the customer's logic | The customer could get the same outcome with a different rule, and agreed to it |
+| Keep it on-portal | Nothing in the API could replace a field the logic depended on, and the TMS still allowed on-portal automation |
+| Escalate a product change | The gap affected many customers, not one. These went to the CTO |
+
+## Trade-offs I had to weigh
+
+- **API access wasn't always free.** Some TMS vendors charged for it. High-volume customers gained the most; for smaller ones, staying on-portal (where allowed) or bidding manually through an account manager could make more sense.
+- **Not every new build should be an API.** Where a TMS only allows API, new builds use it. Where both still work, the customer chooses between API and on-portal.
+- **Most carriers had never used an API.** I joined their calls and emails with TMS vendors and got credentials in place before engineering started, so engineering time went on building, not chasing access.
 
 <figure class="flow">
   <div class="flow-branches">
     <div class="flow-branch">
       <div class="flow-tag">Outgoing API: this migration</div>
-      <div class="flow-step">Our automation<span>runs on the customer's server</span></div>
+      <div class="flow-step">Our automation<span>runs on a hosted VM</span></div>
       <div class="flow-arrow" aria-hidden="true"></div>
       <div class="flow-step">TMS API<span>returns the loads</span></div>
       <div class="flow-arrow" aria-hidden="true"></div>
@@ -64,9 +73,9 @@ The migration used one model. The other came later, as a separate product.
     </div>
     <div class="flow-branch">
       <div class="flow-tag flow-tag-muted">Incoming API: instant quoting</div>
-      <div class="flow-step">Shipper's TMS<span>sends a load</span></div>
+      <div class="flow-step">Shipper's system<span>sends a load</span></div>
       <div class="flow-arrow" aria-hidden="true"></div>
-      <div class="flow-step">AVRL endpoint<span>no customer server needed</span></div>
+      <div class="flow-step">Our endpoint<span>no VM needed</span></div>
       <div class="flow-arrow" aria-hidden="true"></div>
       <div class="flow-step">Quote returned<span>in the same call</span></div>
     </div>
@@ -74,41 +83,20 @@ The migration used one model. The other came later, as a separate product.
   <figcaption>Results on this page are for the outgoing model. The incoming model is in <a href="/work/pricing-api/">the rating API story</a>.</figcaption>
 </figure>
 
-## Key decisions and trade-offs
-
-| Decision | Why | Who decided |
-| --- | --- | --- |
-| Move from UI bots to APIs | Portal restrictions made bots unsustainable on some platforms | I proposed it; the CTO approved it |
-| Start with platforms that were restricting bots | Those customers would lose their automations otherwise | I set the order |
-| Approach high-volume customers first | The most benefit, and the earliest view of API gaps | I set the order |
-| Check compatibility before any customer outreach | No surprises after a customer had committed | My readiness framework |
-| Weigh API access fees against each customer's volume | For low-volume customers, the fee could outweigh the benefit | Agreed with each customer |
-| Keep UI bots where APIs fell short | A partial migration was better than a broken one | Case by case, with engineering |
-| Approve small workarounds; escalate bigger changes | Fast for customer-specific fixes, careful for anything product-wide | Minor ones: me. Product-level: the CTO |
-
-## What made this difficult
-
-- **Most carriers had never used an API.** I acted as the go-between with their TMS providers: explaining what API access meant, joining their emails and onboarding calls, and getting credentials in place before engineering started.
-- **Access depended on third parties.** Every migration waited on a TMS provider granting access and sharing documentation.
-- **APIs didn't return everything the portals showed.** Where a field was missing, I asked the TMS to expose it, shared real API responses with the customer to see whether another field could do the job, and worked through workarounds with engineering.
-- **Every customer's logic was different.** A change that worked for one could break another's rules, so each workaround was checked against that customer's existing logic first.
-- **The cheaper option wasn't always the API.** Some TMS providers charged for API access. Higher-volume customers gained the most; for smaller ones, staying on bots (where allowed) or bidding manually through an account manager could make more sense.
-
 ## Results
 
-| What changed | Before | After | How we know |
+| What changed | Before | After | Type of evidence |
 | --- | --- | --- | --- |
-| A representative 20-load run | About 10 minutes | 4–5 minutes, about 2x faster | Timed on an example run; individual automations vary |
-| Automations per server | About 3 | 5–6 | Server capacity before and after |
-| Breakages from screen changes | Frequent, each needing an engineer | None on API automations | Support queue after migration |
-| Customers migrated | | Almost all | Tracked through the migration |
-
-Maintenance tickets dropped too, and more of them became questions about configuring logic rather than fixing broken bots. Customers got more dependable round-the-clock runs.
+| Customers on TMSs that blocked on-portal automation | About to lose their automations | Kept automating through the API | Direct: the bot route was closed |
+| A sample 20-load run | About 10 minutes | 4–5 minutes, about 2x faster | Timed on a sample run; individual automations vary |
+| Automations per VM | About 3 | 5–6 | Observed VM capacity |
+| VMs needed per automation | | Roughly 40–50% fewer | Derived from the capacity change, on the same VM type |
+| Breakages from portal screen changes | Frequent, each needing an engineer | None on API automations | Follows from the design: no screens involved |
+| Which automations moved | | Every one where API was the only option or the customer chose API access | Tracked during the migration; no formal percentage of the total |
+| Automation failures and maintenance tickets | | Dropped significantly | Observed in the support queue; not measured as a percentage |
+| Live API automations | | 550+ across about 50 customers | Platform count. About 50–100 were migrated; the rest were new API builds |
 
 ## What I learned
 
-- An API migration isn't just a technical swap. It involves customer economics and operational readiness as much as code.
-- You have to understand a customer's existing workflow before you change what sits underneath it.
-- API coverage gaps need finding before a migration starts, not halfway through.
-- The technically better option isn't automatically the economical one for every customer.
-- Monitoring after migration is part of the migration, not an optional extra.
+- An API migration is as much about customer economics and readiness as about code.
+- Find the API gaps before the migration starts, not halfway through.

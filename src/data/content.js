@@ -3,31 +3,31 @@
 export const work = [
   {
     slug: 'bots-to-apis',
-    title: 'From UI bots to API-based automations',
+    title: 'From on-portal automations to APIs',
     story:
-      "TMS portals started blocking our bots with CAPTCHAs and restrictions. I proposed moving to their APIs, checked every customer's logic for compatibility first, and drove the migration with engineering until almost every customer had moved.",
-    result: 'Runs got about 2x faster, and screen changes stopped breaking anything.',
+      "TMS portals started blocking our on-portal automations with CAPTCHAs and restrictions. I proposed moving to their APIs, rated every customer's automations for API readiness, and led the customer side of the migration while engineering built the integrations.",
+    result: 'Automations moved wherever API was the only option or the customer chose it. A sample run got about 2x faster, with roughly 40–50% fewer VMs per automation.',
   },
   {
     slug: 'pricing-api',
-    title: 'One rating API for every shipper and TMS',
+    title: 'One rating API instead of a custom build per shipper',
     story:
-      "Every shipper's TMS wanted quotes in its own format, so each new connection was a custom build. I launched one real-time rating API any shipper can call, then a Chrome extension on top so carrier teams get a rate in one click.",
+      "Shippers with their own APIs each needed a custom quote integration. I proposed one standard rating API instead, then drove a Chrome extension when carriers wanted rates for their own teams.",
     result: '12 carriers use the API, 6 use the extension.',
   },
   {
     slug: 'self-service-rules',
     title: 'Letting customers change their own rules',
     story:
-      'The same support ticket kept coming back: please change my pricing rule. So I built rule-based logic customers set themselves.',
-    result: 'Changes went from days to real time, and tickets dropped 40%.',
+      'The same ticket kept coming back: please change my pricing rule. I proposed and designed a wizard so customers make those changes themselves, then drove adoption.',
+    result: 'Rule-change tickets dropped 40%, and changes went from days to real time.',
   },
   {
     slug: 'support-on-zendesk',
-    title: 'Moving support out of Gmail',
+    title: "Designing a support queue that's fair to every customer",
     story:
-      "Tickets lived in shared inboxes. I'd run support on Zendesk before, so I moved the whole org onto it, designed how tickets reach the right team, and gave customers activation slots so no single customer could swamp the queue.",
-    result: '',
+      "Tickets lived in shared inboxes, and a few heavy senders crowded out everyone else. I moved the org onto Zendesk and designed activation slots, so customers pick their own priorities and nobody can swamp the queue.",
+    result: 'Customers see live ticket status, and every ticket has a clear owner.',
   },
 ];
 

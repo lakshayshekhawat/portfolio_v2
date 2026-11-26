@@ -10,6 +10,11 @@ const { frontmatter } = Astro.props;
       <h1>{frontmatter.title}</h1>
       <p class="dek">{frontmatter.description}</p>
       {frontmatter.result && <p class="result">{frontmatter.result}</p>}
+      {frontmatter.tldr && (
+        <dl class="tldr">
+          {frontmatter.tldr.map((row) => (<div><dt>{row.label}</dt><dd>{row.text}</dd></div>))}
+        </dl>
+      )}
     </header>
     <div class="story-body">
       <slot />
@@ -34,6 +39,11 @@ const { frontmatter } = Astro.props;
     font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.4;
     border-left: 0;
   }
+  .tldr { margin: 4px 0 0; padding: 18px 20px; border-radius: 14px; background: var(--card); border: 2px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+  .tldr div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; }
+  .tldr dt { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink); padding-top: 2px; }
+  .tldr dd { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink-soft); }
+  @media (max-width: 600px) { .tldr div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
   .story-body :global(h2) { font-size: 30px; margin: 44px 0 12px; letter-spacing: -0.01em; }
   .story-body :global(p) { margin: 0 0 18px; color: var(--ink-soft); }
   .story-body :global(ul) { margin: 0 0 18px; padding-left: 1.2em; color: var(--ink-soft); }
@@ -50,6 +60,7 @@ const { frontmatter } = Astro.props;
   .story-body :global(.flow-branch) { display: flex; flex-direction: column; align-items: center; padding: 14px; border: 2px dashed #B9C4BE; border-radius: 14px; }
   .story-body :global(.flow-tag) { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--ink); background: var(--marking); border-radius: 8px; padding: 3px 10px; margin-bottom: 12px; text-align: center; }
   .story-body :global(.flow figcaption) { margin-top: 18px; font-size: 16px; color: var(--ink-soft); text-align: center; max-width: 520px; }
+  @media (max-width: 700px) { .story-body :global(table) { display: block; overflow-x: auto; font-size: 15px; } .story-body :global(th), .story-body :global(td) { min-width: 120px; } }
   @media (max-width: 600px) { .story-body :global(.flow-branches) { grid-template-columns: minmax(0, 1fr); } .story-body :global(.flow) { padding: 18px; } }
   .story-body :global(table) { width: 100%; border-collapse: collapse; margin: 8px 0 24px; font-size: 16px; line-height: 1.45; }
   .story-body :global(th) { text-align: left; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink); padding: 10px 12px 10px 0; border-bottom: 2px solid var(--ink); vertical-align: bottom; }

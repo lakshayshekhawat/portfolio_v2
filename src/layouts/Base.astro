@@ -47,8 +47,9 @@ const ogImage = new URL('/og.png', Astro.site);
         <nav aria-label="Main">
           <a href="/#work">Work</a>
           <a href="/#now">Working on</a>
-          <a href="/#prds">PRDs</a>
+          <a href="/#experience">About</a>
           <a href="/#contact">Contact</a>
+          <a href={site.resume} download>Resume</a>
         </nav>
         {showScore && (
           <div class="score" aria-hidden="true">

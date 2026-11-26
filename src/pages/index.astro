@@ -75,26 +75,8 @@ import { work, building, prds } from '../data/content.js';
         </div>
       </section>
 
-      <section id="prds" class="station" data-stop data-points="100">
-        <span class="stop" aria-hidden="true">3</span>
-        <div class="stack-md">
-          <h2>Product thinking on paper</h2>
-          <p class="soft">PRDs from the Rethink Systems PM program, 2024.</p>
-          <ul class="prd-list">
-            {prds.map((p) => (
-              <li>
-                <a href={p.href} target="_blank" rel="noopener">
-                  <span class="prd-title">{p.title}</span>
-                  <span class="prd-line">{p.line}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       <section id="experience" class="station" data-stop data-points="100">
-        <span class="stop" aria-hidden="true">4</span>
+        <span class="stop" aria-hidden="true">3</span>
         <div class="stack-md">
           <h2>How I got here</h2>
           <div class="exp-grid">
@@ -112,6 +94,24 @@ import { work, building, prds } from '../data/content.js';
             webhooks, OAuth, SQL and Python when a spec needs checking.
           </p>
           </div>
+        </div>
+      </section>
+
+      <section id="prds" class="station" data-stop data-points="100">
+        <span class="stop" aria-hidden="true">4</span>
+        <div class="stack-md">
+          <h2>Product thinking on paper</h2>
+          <p class="soft">Course work: PRDs from the Rethink Systems PM program, 2024.</p>
+          <ul class="prd-list">
+            {prds.map((p) => (
+              <li>
+                <a href={p.href} target="_blank" rel="noopener">
+                  <span class="prd-title">{p.title}</span>
+                  <span class="prd-line">{p.line}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
