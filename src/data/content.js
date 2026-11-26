@@ -6,7 +6,7 @@ export const work = [
     title: 'From brittle bots to APIs',
     story:
       "Our automations clicked through other companies' screens, so every redesign on their side broke a customer's workflow. I moved 550+ integrations to direct APIs and made API the default for every new build.",
-    result: 'Runs got about 5x faster, and screen changes stopped breaking anything.',
+    result: 'Runs got about 2x faster, and screen changes stopped breaking anything.',
   },
   {
     slug: 'pricing-api',

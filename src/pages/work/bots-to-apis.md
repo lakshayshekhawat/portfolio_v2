@@ -3,7 +3,7 @@ layout: ../../layouts/Story.astro
 title: From brittle bots to APIs
 kicker: Platform migration at AVRL
 description: How we stopped breaking every time a partner redesigned a screen, by moving 550+ customer integrations from UI bots to direct APIs.
-result: About 5x faster runs, no more breakages from screen changes, and nearly double the automations per server.
+result: About 2x faster runs, no more breakages from screen changes, and nearly double the automations per server.
 ---
 
 ## Context
@@ -27,7 +27,7 @@ More TMS platforms were opening APIs. An API is a contract: it doesn't change be
 
 ## The result
 
-- Automations run about **5x faster** per run.
+- Automations run about **2x faster** per run.
 - Breakages from screen changes are **gone** for API builds.
 - Each server went from about **3 to 5–6 automations**, and incoming builds need no server, which cut hosting cost.
 - The platform passed **550+ customer integrations**, and average build time halved from 10 days to 5.
