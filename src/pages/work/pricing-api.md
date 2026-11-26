@@ -8,7 +8,7 @@ result: 12 carriers rate loads through the API, 6 use the extension, and some bu
 
 ## Context
 
-AVRL's customers are carriers and freight brokers. Their shippers want a price for a load in real time, usually straight from the shipper's Transportation Management System (TMS). Each carrier has its own logic for which loads to take and how to price them.
+AVRL's customers are carriers and freight brokers. Their shippers want a price for a load in real time, usually straight from the shipper's Transportation Management System (TMS). Each carrier has its own logic for which loads to take and how to price them. This is an *incoming* API: the shipper's TMS calls us, so no customer server is involved. Compare the outgoing model in [the migration story](/work/bots-to-apis/).
 
 ## The problem
 

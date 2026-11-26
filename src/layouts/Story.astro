@@ -51,5 +51,13 @@ const { frontmatter } = Astro.props;
   .story-body :global(.flow-tag) { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--ink); background: var(--marking); border-radius: 8px; padding: 3px 10px; margin-bottom: 12px; text-align: center; }
   .story-body :global(.flow figcaption) { margin-top: 18px; font-size: 16px; color: var(--ink-soft); text-align: center; max-width: 520px; }
   @media (max-width: 600px) { .story-body :global(.flow-branches) { grid-template-columns: minmax(0, 1fr); } .story-body :global(.flow) { padding: 18px; } }
+  .story-body :global(table) { width: 100%; border-collapse: collapse; margin: 8px 0 24px; font-size: 16px; line-height: 1.45; }
+  .story-body :global(th) { text-align: left; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink); padding: 10px 12px 10px 0; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+  .story-body :global(td) { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+  .story-body :global(td:first-child) { color: var(--ink); font-weight: 500; }
+  .story-body :global(.table-wrap) { overflow-x: auto; }
+  .story-body :global(.flow-tag-muted) { background: #D7DED9; }
+  .story-body :global(.flow figcaption a) { color: var(--link); }
+  @media (max-width: 600px) { .story-body :global(table) { font-size: 14px; display: block; overflow-x: auto; } }
   .story-body :global(mark) { background: #FBE7A1; color: var(--ink); padding: 0 3px; border-radius: 3px; }
 </style>

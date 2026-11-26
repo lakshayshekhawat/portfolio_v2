@@ -3,9 +3,9 @@
 export const work = [
   {
     slug: 'bots-to-apis',
-    title: 'From brittle bots to APIs',
+    title: 'From UI bots to API-based automations',
     story:
-      "Our automations clicked through other companies' screens, so every redesign on their side broke a customer's workflow. I moved 550+ integrations to direct APIs and made API the default for every new build.",
+      "TMS portals started blocking our bots with CAPTCHAs and restrictions. I proposed moving to their APIs, checked every customer's logic for compatibility first, and drove the migration with engineering until almost every customer had moved.",
     result: 'Runs got about 2x faster, and screen changes stopped breaking anything.',
   },
   {
